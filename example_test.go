@@ -1,16 +1,4 @@
-# resource
-[![GoDoc](https://godoc.org/github.com/ascarter/resource?status.svg)](http://godoc.org/github.com/ascarter/resource) [![Go Report Card](https://goreportcard.com/badge/github.com/ascarter/resource)](https://goreportcard.com/report/github.com/ascarter/resource)
-
-Resource is a REST handler library for Go. It provides `net/http` compatible extensions for routing to a resource handler.
-
-# Usage
-
-This is an example of a simple web app using conductor. For more detailed example,
-see `example_test.go` file.
-
-```go
-
-package main
+package resource_test
 
 import (
 	"fmt"
@@ -34,7 +22,7 @@ type EmployeeResource struct {
 
 // GET /employees
 func (er *EmployeeResource) Index(w http.ResponseWriter, r *http.Request) {
-	// List of employees
+	// return list of employees
 	if err := resource.WriteJSON(w, er.Employees); err != nil {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
@@ -150,33 +138,3 @@ func Example() {
 	mux.HandleResource(`/posts`, &EmployeeResource{lastID: 0})
 	log.Fatal(http.ListenAndServe(":8080", mux))
 }
-
-```
-
-# Routing
-
-Resource provides a routing component `Router` which can help setup routes for resource endpoints. It is a very simple router that uses `http.ServeMux`. It can be used as a drop-in replacement since it uses the same `http.ServeMux` internally. The primary feature is adding a `HandleResource` func that will conveniently setup a `ResourceHandler` fora path prefix.
-
-The pattern supplied to `HandleResource` should be the collection path for the resource:
-
-```go
-
-mux := resource.NewRouter()
-mux.HandleResource(`/api/posts`, &PostsResource{})
-```
-
-Router is a `http.Handler` compatible so it can be used in conjunction with other middleware or routing libraries.
-
-# Resource Interface
-
-A Resource implements handlers for REST routes. Resources map specific HTTP methods to route patterns. Each method in the interface performs a specific operation on the resource. Each action generally corresponds to a CRUD operation typically in a database.
-
-For a `photos` resource:
-
-Method | HTTP Method | Path | Description
------- | ----------- | ---- | ------------
-Index | GET | /photos | display list of all photos
-Create | POST | /photos | create a new photo
-Show  | GET | /photos/:id | display specific photo
-Update | PUT | /photos/:id | update a specific photo
-Destroy | DELETE | /photos/:id | delete a specific photo
