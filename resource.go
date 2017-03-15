@@ -129,7 +129,7 @@ func (h *resourceHandler) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 
 	switch r.Method {
 	default:
-		http.NotFound(w, r)
+		http.Error(w, http.StatusText(http.StatusMethodNotAllowed), http.StatusMethodNotAllowed)
 	case http.MethodGet:
 		s := strings.TrimPrefix(p, h.prefix)
 		if len(s) > 0 {
