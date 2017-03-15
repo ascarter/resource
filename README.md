@@ -165,7 +165,7 @@ mux := resource.NewRouter()
 mux.HandleResource(`/api/posts`, &PostsResource{})
 ```
 
-Router is a `http.Handler` compatible so it can be used in conjunction with other middleware or routing libraries.
+Router is `http.Handler` compatible so it can be used in conjunction with other middleware or routing libraries.
 
 # Resource Interface
 
