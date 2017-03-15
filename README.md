@@ -155,7 +155,7 @@ func Example() {
 
 # Routing
 
-Resource provides a routing component `Router` which can help setup routes for resource endpoints. It is a very simple router that uses `http.ServeMux`. It can be used as a drop-in replacement since it uses the same `http.ServeMux` internally. The primary feature is adding a `HandleResource` func that will conveniently setup a `ResourceHandler` fora path prefix.
+Resource provides a routing component `Router` which can help setup routes for resource endpoints. It is a very simple router that uses `http.ServeMux`. It can be used as a drop-in replacement since it uses the same `http.ServeMux` internally. The primary feature is adding a `HandleResource` func that will conveniently setup a `ResourceHandler` for a path prefix.
 
 The pattern supplied to `HandleResource` should be the collection path for the resource:
 
